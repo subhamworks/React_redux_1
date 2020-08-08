@@ -1,25 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk';
+import axios from 'axios';
+
+
+import Layout from './layout'
+import Navbar from './Components/Navbar/Navbar'
+import rootReducer from './stores/rootReduces'
+
+axios.defaults.baseURL = 'http://localhost:3001/';
 
 function App() {
+  const store = createStore(rootReducer, applyMiddleware(thunk))
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Navbar />
+          <Layout />
+        </BrowserRouter>
+      </Provider>
+    </React.Fragment>
   );
 }
 
