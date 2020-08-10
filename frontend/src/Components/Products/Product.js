@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 
 import styles from './Products.module.css'
 import { fetchProduct } from '../../stores/Product/productAction'
+import { cartAction, increaseQtyAction } from '../../stores/Cart/cartAction'
 
-const Product = ({ product, fetchProduct }) => {
+const Product = ({ product, cart, fetchProduct, cartAction, increaseQtyAction }) => {
     const [products, setProducts] = useState({})
 
     useEffect(() => {
@@ -14,6 +15,25 @@ const Product = ({ product, fetchProduct }) => {
     useEffect(() => {
         setProducts(product)
     }, [product])
+
+    const handleCart = (item) => {
+        const data = {
+            Image: item.Image,
+            Product_Category: item.Product_Category,
+            Product_Name: item.Product_Name,
+            Product_Price: item.Product_Price,
+            Product_Qty: 1,
+            _id: item._id,
+        }
+        if (cart) {
+            let index = cart.findIndex(x => x._id === item._id);
+            if (index >= 0) {
+                increaseQtyAction(item._id)
+            } else {
+                cartAction(data)
+            }
+        }
+    }
 
     return (
         <>
@@ -29,8 +49,12 @@ const Product = ({ product, fetchProduct }) => {
                                         <p>({item.Product_Category})</p>
                                         <p>₹ {item.Product_Price}</p>
                                     </div>
-                                    <div className={styles.btnContent}>
-                                        <button >ADD TO CART</button>
+                                    <div className={styles.btnContent} >
+                                        {
+                                            item.Product_Qty <= 0 ?
+                                                <button disabled className={styles.btnOutStock}>Out Of Stock</button> :
+                                                <button className={styles.btnAddToCart} onClick={() => handleCart(item)}>ADD TO CART</button>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -44,12 +68,15 @@ const Product = ({ product, fetchProduct }) => {
 
 const mapStateToProps = state => {
     return {
-        product: state.product
+        product: state.product,
+        cart: state.cart
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
         fetchProduct: () => dispatch(fetchProduct()),
+        cartAction: (data) => dispatch(cartAction(data)),
+        increaseQtyAction: (data) => dispatch(increaseQtyAction(data)),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Product)
