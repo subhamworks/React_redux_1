@@ -43,6 +43,15 @@ h1 {
   padding: 10px;
   border-radius: 15px;
 }
+
+.content:hover {
+  box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.11);
+}
+
+.emptyContent{
+  text-align: center;
+}
+
 .detailContent {
   width: 70%;
 }
@@ -57,7 +66,13 @@ h1 {
   border-radius: 5px;
 }
 
+.productImg {
+  width: 200px;
+  height: 200px;
+}
+
 .btnAddToCart {
+  height: 35px;
   cursor: pointer;
   color: tomato;
   background: white;

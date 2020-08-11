@@ -37,29 +37,64 @@ body {
   background-color: white;
   padding: 10px;
   border-radius: 10px;
+  text-align: center;
+}
+.content:hover {
+  box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.11);
 }
 
 .qtyContent {
   display: flex;
+  justify-content: space-around;
 }
 
 .removeBtn {
   margin: 10px 0;
+  cursor: pointer;
 }
 
 .qtyBtn {
   height: 25px;
   width: 25px;
   border-radius: 50px;
+  cursor: pointer;
+}
+
+.checkOutBtn {
+  background-color: #4f8a8b;
+  color: #f1f1f1;
+  height: 40px;
+  width: 200px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 10px;
+  cursor: pointer;
+}
+
+.shopBtn {
+  height: 40px;
+  width: 200px;
+  background-color: #4f8a8b;
+  border-radius: 5px;
+  color: #f1f1f1;
+  border: none;
+  box-shadow: 10px;
+  cursor: pointer;
+}
+
+.emptyContent {
+  display: block;
+  text-align: center;
 }
 
 .qtyArea {
   padding: 0 !important;
   height: 25px !important;
-  width: 25px !important;
+  width: 80px !important;
   border: 2px solid black !important;
   border-radius: 5px;
   margin: 0 10px !important;
+  text-align: center;
 }
 
 @media screen and (max-width: 900px) {

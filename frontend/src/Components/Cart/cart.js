@@ -7,8 +7,6 @@ import { increaseQtyAction, decreaseQtyAction, removeItem, placeOrder } from '..
 
 
 const Cart = ({ cart, increaseQtyAction, decreaseQtyAction, removeItem, placeOrder }) => {
-    console.log(cart);
-
     const [products, setProducts] = useState(cart)
     const [mobileNo, setMobileNo] = useState("")
     let total = 0;
@@ -47,7 +45,7 @@ const Cart = ({ cart, increaseQtyAction, decreaseQtyAction, removeItem, placeOrd
             <div className={styles.main}>
                 <div className={styles.row}>
                     {
-                        products && products && products.length > 0 && products.map(item =>
+                        products && products && products.length > 0 ? products.map(item =>
                             <div className={styles.column} key={item._id}>
                                 <div className={styles.content}>
                                     <img src={'http://localhost:3001' + item.Image} alt="Mountains" style={{ width: "200px", height: "200px" }} />
@@ -69,7 +67,12 @@ const Cart = ({ cart, increaseQtyAction, decreaseQtyAction, removeItem, placeOrd
                                     </div>
                                 </div>
                             </div>
-                        )
+                        ) : <div className={styles.emptyContent}>
+                                <h3>Your cart is empty!</h3>
+                                <h6>Add items to it now.</h6>
+                                <button className={styles.shopBtn} onClick={() => window.location = '/'}>Shop now</button>
+
+                            </div>
                     }
                 </div>
                 <div>
@@ -77,7 +80,7 @@ const Cart = ({ cart, increaseQtyAction, decreaseQtyAction, removeItem, placeOrd
                         <h3>Total Amount</h3>
                         <h5>₹  {total}</h5>
                         <input type="text" value={mobileNo} placeholder="Enter Mobile Number" onChange={(e) => handleMobile(e)} />
-                        <button onClick={() => orderCheckOut()}>CheckOut</button>
+                        <button className={styles.checkOutBtn} onClick={() => orderCheckOut()}>CheckOut</button>
                     </div>) : ""}
                 </div>
             </div>

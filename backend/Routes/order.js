@@ -14,7 +14,8 @@ router.get('/fetchOrder', (req, res) => {
         })
 })
 
-router.get('/fetchOrder/:Orderid', (req, res) => {
+router.get('/fetchOrderById/:Orderid', (req, res) => {
+
     const Orderid = req.params.Orderid
 
     Order.find({ _id: Orderid })
@@ -33,7 +34,7 @@ router.post('/postOrder', (req, res) => {
         Order_Ammount: req.body.totalAmmount,
         Customer_Mobile: req.body.mobileNo
     }
-    
+
     Order.create(data)
         .then(resData => {
             res.status(200).json({ message: "Order Successfully Added" })

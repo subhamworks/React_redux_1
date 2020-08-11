@@ -35,15 +35,17 @@ const Product = ({ product, cart, fetchProduct, cartAction, increaseQtyAction })
         }
     }
 
+    
+
     return (
         <>
             <div className={styles.main}>
                 <div className={styles.row}>
                     {
-                        products && products[0] && products[0].length > 0 && products[0].map(item =>
+                        products && products && products.length > 0 ? products.map(item =>
                             <div className={styles.column} key={item._id}>
                                 <div className={styles.content}>
-                                    <img src={'http://localhost:3001' + item.Image} alt="Mountains" style={{ width: "200px", height: "200px" }} />
+                                    <img className={styles.productImg} src={'http://localhost:3001' + item.Image} alt="Mountains" />
                                     <div className={styles.detailContent}>
                                         <h3>{item.Product_Name}</h3>
                                         <p>({item.Product_Category})</p>
@@ -58,7 +60,10 @@ const Product = ({ product, cart, fetchProduct, cartAction, increaseQtyAction })
                                     </div>
                                 </div>
                             </div>
-                        )
+                        ) : <div className={styles.emptyContent}>
+                                <h3>No products Available!</h3>
+                                <h6>Add items to it now.</h6>
+                            </div>
                     }
                 </div>
             </div>
@@ -68,7 +73,7 @@ const Product = ({ product, cart, fetchProduct, cartAction, increaseQtyAction })
 
 const mapStateToProps = state => {
     return {
-        product: state.product,
+        product: state.product[0],
         cart: state.cart
     }
 }
